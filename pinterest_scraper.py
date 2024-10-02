@@ -110,7 +110,7 @@ def scrape_pinterest(search_query, image_count, folder_path):
 
 # Example usage
 if __name__ == "__main__":
-    search_query = "interior design images"  # Your search term
+    search_query = "ombre wall paint ideas"  # Your search term
     image_count = 100  # Number of images to download
     folder_path = r"C:\HomeHue\pinterest_images"  # Specify your folder path here
     scrape_pinterest(search_query, image_count, folder_path)
