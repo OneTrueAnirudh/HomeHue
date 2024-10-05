@@ -22,6 +22,19 @@ def segment_walls(path_image, weights_encoder, weights_decoder):
     # Return the segmentation mask
     return segmentation_mask
 
+def walls_ui(path_image): #same function but it just saves the segmented image without the walls
+    script_path = os.path.abspath(__file__)
+    base_dir = os.path.dirname(script_path)
+    weights_encoder = os.path.join(base_dir, "model_weights", "encoder_weight.pth")
+    weights_decoder = os.path.join(base_dir, "model_weights", "decoder_weight.pth")
+    mask = segment_walls(path_image, weights_encoder, weights_decoder)
+    orig = cv2.imread(path_image)
+    m, s = images(orig, mask)
+    m = np.asarray(m)
+    s = np.asarray(s)
+    cv2.imwrite(os.path.join(base_dir, "seg.jpg"), s)   
+    return m
+
 def walls(path_image):    
     script_path = os.path.abspath(__file__)
     base_dir = os.path.dirname(script_path)
@@ -32,10 +45,7 @@ def walls(path_image):
     m, s = images(orig, mask)
     m = np.asarray(m)
     s = np.asarray(s)
-    mask_count = len(os.listdir(os.path.join(base_dir, "mask"))) + 1  
-    segmented_count = len(os.listdir(os.path.join(base_dir, "mask"))) + 1
-    cv2.imwrite(os.path.join(base_dir, "mask", f"mask_{mask_count}.jpg"), m)
-    cv2.imwrite(os.path.join(base_dir, "seg", f"seg_{segmented_count}.jpg"), s)
+    return m,s  
 
 if __name__=="__main__":
     img_path=r"pinterest_images\image_20241003_002805_245924.jpg"

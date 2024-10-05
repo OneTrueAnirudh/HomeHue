@@ -68,8 +68,7 @@ def images(img, pred, class_to_display=0):
     img_green = img.copy()
     black_green = img.copy()
     img_green[pred == class_to_display] = [0, 255, 0]
-    black_green[pred == class_to_display] = [0, 255, 0]
-    black_green[pred != class_to_display] = [0, 0, 0]
+    black_green[pred != class_to_display] = [0, 255, 0]
     return black_green, img_green
 
 def not_None_collate(x):
