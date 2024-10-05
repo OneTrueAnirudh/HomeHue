@@ -8,17 +8,6 @@ import numpy as np
 import os
 
 def segment_walls(path_image, weights_encoder, weights_decoder):
-    """
-    Function to perform wall segmentation on a given image.
-    
-    Parameters:
-    - path_image: Path to the input image.
-    - weights_encoder: Path to the encoder model weights.
-    - weights_decoder: Path to the decoder model weights.
-    
-    Returns:
-    - segmentation_mask: The segmentation mask of the input image.
-    """
     # Build the encoder and decoder models
     net_encoder = build_encoder(weights_encoder)
     net_decoder = build_decoder(weights_decoder)
@@ -46,10 +35,8 @@ def walls(path_image):
     mask_count = len(os.listdir(os.path.join(base_dir, "mask"))) + 1  
     segmented_count = len(os.listdir(os.path.join(base_dir, "mask"))) + 1
     cv2.imwrite(os.path.join(base_dir, "mask", f"mask_{mask_count}.jpg"), m)
-    cv2.imwrite(os.path.join(base_dir, "seg", f"seg_{segmented_count}.jpg"), s)   
+    cv2.imwrite(os.path.join(base_dir, "seg", f"seg_{segmented_count}.jpg"), s)
 
 if __name__=="__main__":
-    script_path = os.path.abspath(__file__)
-    base_dir = os.path.dirname(script_path)
-    img = os.path.join(base_dir, "pinterest_images", "image_20240923_151750_809916.jpg")
-    walls(img)
+    img_path=r"pinterest_images\image_20241003_002805_245924.jpg"
+    walls(img_path)

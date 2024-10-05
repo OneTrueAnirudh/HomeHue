@@ -25,3 +25,6 @@ def browse():
         read_and_display_image(image_path)  # Display the image using the selected file path
 
     return image_path  # Return the path to the image for further use
+
+# img=browse()
+# print(img)
