@@ -1,8 +1,9 @@
-import matplotlib.pyplot as plt
+
 from models.models import SegmentationModule, build_encoder, build_decoder
 from src.eval import segment_image
 from utils.constants import DEVICE
 from utils.utils import images
+from PIL import Image
 import cv2
 import numpy as np
 import os
@@ -28,12 +29,11 @@ def walls_ui(path_image): #same function but it just saves the segmented image w
     weights_encoder = os.path.join(base_dir, "model_weights", "encoder_weight.pth")
     weights_decoder = os.path.join(base_dir, "model_weights", "decoder_weight.pth")
     mask = segment_walls(path_image, weights_encoder, weights_decoder)
-    orig = cv2.imread(path_image)
-    m, s = images(orig, mask)
-    m = np.asarray(m)
-    s = np.asarray(s)
-    cv2.imwrite(os.path.join(base_dir, "seg.jpg"), s)   
-    return m
+    original_image = cv2.imread(path_image)
+    masked_region, segmented_image = images(original_image, mask)
+    masked_region = np.asarray(masked_region)
+    segmented_image = np.asarray(segmented_image) 
+    return masked_region,segmented_image, mask
 
 def walls(path_image):    
     script_path = os.path.abspath(__file__)
@@ -41,11 +41,11 @@ def walls(path_image):
     weights_encoder = os.path.join(base_dir, "model_weights", "encoder_weight.pth")
     weights_decoder = os.path.join(base_dir, "model_weights", "decoder_weight.pth")
     mask = segment_walls(path_image, weights_encoder, weights_decoder)
-    orig = cv2.imread(path_image)
-    m, s = images(orig, mask)
-    m = np.asarray(m)
-    s = np.asarray(s)
-    return m,s  
+    original_image = cv2.imread(path_image)
+    masked_region, segmented_image = images(original_image, mask)
+    masked_region = np.asarray(masked_region)
+    segmented_image = np.asarray(segmented_image)
+    return masked_region,segmented_image, mask 
 
 # if __name__=="__main__":
 #     img_path=r"pinterest_images\image_20241003_002805_245924.jpg"

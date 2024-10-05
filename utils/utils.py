@@ -71,5 +71,12 @@ def images(img, pred, class_to_display=0):
     black_green[pred != class_to_display] = [0, 255, 0]
     return black_green, img_green
 
+def hex_to_rgb(hex_color):
+    hex_color = hex_color.lstrip('#')
+    red = int(hex_color[0:2], 16)   
+    green = int(hex_color[2:4], 16) 
+    blue = int(hex_color[4:6], 16)  
+    return red, green, blue
+
 def not_None_collate(x):
     return x
