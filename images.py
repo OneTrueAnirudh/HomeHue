@@ -47,6 +47,6 @@ def walls(path_image):
     s = np.asarray(s)
     return m,s  
 
-if __name__=="__main__":
-    img_path=r"pinterest_images\image_20241003_002805_245924.jpg"
-    walls(img_path)
+# if __name__=="__main__":
+#     img_path=r"pinterest_images\image_20241003_002805_245924.jpg"
+#     walls(img_path)

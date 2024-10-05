@@ -91,6 +91,5 @@ def extract_colors_gmm_no_green(image_path, n_colors, saturation_scale=1.1, cont
         ax[i].axis('off')  # Hide axis for a cleaner display
     plt.show()
 
-# Usage
-image_path = r"seg\seg_5.jpg"
-extract_colors_gmm_no_green(image_path, n_colors=5)
+# image_path = r""
+# extract_colors_gmm_no_green(image_path, n_colors=5)
