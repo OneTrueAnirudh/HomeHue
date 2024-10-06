@@ -2,7 +2,6 @@ from models.models import SegmentationModule, build_encoder, build_decoder
 from src.eval import segment_image
 from utils.constants import DEVICE
 from utils.utils import images
-from PIL import Image
 import cv2
 import numpy as np
 import os

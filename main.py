@@ -8,7 +8,7 @@ import os
 #importing utility functions
 from GUI import browse
 from room_palette import extract_room_colors
-from images import walls_ui
+from wall_segmenter import walls_ui
 from wall_color import extract_wall_color
 
 #allowing user to select their picture
