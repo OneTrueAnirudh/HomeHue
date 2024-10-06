@@ -3,9 +3,9 @@ import numpy as np
 from sklearn.mixture import GaussianMixture
 import matplotlib.pyplot as plt
 
-# Helper function to convert RGB to Hex format
-def rgb_to_hex(rgb):
-    return '#{:02x}{:02x}{:02x}'.format(int(rgb[0]), int(rgb[1]), int(rgb[2]))
+# # Helper function to convert RGB to Hex format
+# def rgb_to_hex(rgb):
+#     return '#{:02x}{:02x}{:02x}'.format(int(rgb[0]), int(rgb[1]), int(rgb[2]))
 
 # Function to increase saturation of an image
 def increase_saturation(image, scale=1.1):
@@ -43,9 +43,8 @@ def remove_green_pixels(image):
     return non_green_image
 
 # Modified function to apply GMM for color extraction excluding green pixels
-def extract_room_colors(image_path, n_colors, saturation_scale=1.1, contrast_alpha=1.1, contrast_beta=5):
+def extract_room_colors(img, n_colors=4, saturation_scale=1.1, contrast_alpha=1.1, contrast_beta=5):
     print("extracting room's color palette...")
-    img = cv2.imread(image_path)  # Read the image from the specified path
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # Convert the image from BGR (OpenCV) to RGB
     img = remove_green_pixels(img)  # Remove green pixels from the image
     img = increase_saturation(img, scale=saturation_scale)  # Increase the saturation of the image
@@ -57,9 +56,8 @@ def extract_room_colors(image_path, n_colors, saturation_scale=1.1, contrast_alp
     gmm.fit(pixels)
     colors = gmm.means_.astype(int)  # Extract the mean RGB values of the clusters
 
-    # Convert the RGB colors to Hex format and print them
-    hex_colors = [rgb_to_hex(color) for color in colors]
-    print("Hex codes of dominant colors:", hex_colors)
+    # Print RGB values of the dominant colors
+    print("RGB values of dominant colors:\n", colors)
 
     # Display the color palette as consecutive squares
     fig, ax = plt.subplots(1, len(colors), figsize=(len(colors) * 2, 2))
@@ -69,5 +67,9 @@ def extract_room_colors(image_path, n_colors, saturation_scale=1.1, contrast_alp
     fig.suptitle("Room Color Palette", x=0.5, fontsize=16, fontweight='bold')
     plt.show()
 
-# image_path = r""
-# extract_room_colors(image_path, n_colors=4)
+    # Return the colors as a tuple of RGB tuples
+    return list(map(tuple, colors))
+
+# image_path = r""  # Replace with your image path
+# room_colors = extract_room_colors(image_path, n_colors=4)
+# print("Extracted Room Colors (RGB):", room_colors)

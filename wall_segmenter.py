@@ -58,7 +58,7 @@ def walls_ui(path_image): #same function but it just saves the segmented image w
     s = np.asarray(s)
     cv2.imwrite(os.path.join(base_dir, "user_room_img.jpg"), s)
     display_output(orig,m,s)   
-    return m
+    return m,s
 
 def walls(path_image):    
     script_path = os.path.abspath(__file__)
