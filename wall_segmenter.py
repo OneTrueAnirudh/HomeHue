@@ -1,11 +1,12 @@
-import matplotlib.pyplot as plt
 from models.models import SegmentationModule, build_encoder, build_decoder
 from src.eval import segment_image
 from utils.constants import DEVICE
 from utils.utils import images
+from PIL import Image
 import cv2
 import numpy as np
 import os
+import matplotlib.pyplot as plt
 
 def display_output(original_image, masked_image, segmented_image):
 
@@ -72,14 +73,6 @@ def walls(path_image):
     s = np.asarray(s)
     display_output(orig,m,s)
     return m,s
-
-def delete_file(file_path):
-    # Check if the file exists
-    if os.path.isfile(file_path):
-        os.remove(file_path)  # Delete the file
-    #     print(f"{file_path} has been deleted.")
-    # else:
-    #     print(f"{file_path} does not exist.")
 
 # if __name__=="__main__":
 #     img_path=r"pinterest_images\image_20241003_002805_245924.jpg"
