@@ -27,30 +27,6 @@ def weighted_pixel_sampling(image):
     sampled_pixels = np.random.choice(np.arange(len(pixels)), size=len(pixels), p=weights / weights.sum())  # Sample pixels based on brightness weights
     return pixels[sampled_pixels]
 
-# Function to apply GMM for color extraction from an image
-def extract_colors_gmm(image_path, n_colors, saturation_scale=1.1, contrast_alpha=1.1, contrast_beta=5):
-    img = cv2.imread(image_path)  # Read the image from the specified path
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # Convert the image from BGR (OpenCV) to RGB
-    img = increase_saturation(img, scale=saturation_scale)  # Increase the saturation of the image
-    img = adjust_contrast(img, alpha=contrast_alpha, beta=contrast_beta)  # Adjust contrast and brightness of the image
-    pixels = weighted_pixel_sampling(img)  # Perform weighted sampling of pixels
-
-    # Fit a Gaussian Mixture Model to identify n_colors dominant colors
-    gmm = GaussianMixture(n_components=n_colors)
-    gmm.fit(pixels)
-    colors = gmm.means_.astype(int)  # Extract the mean RGB values of the clusters
-
-    # Convert the RGB colors to Hex format and print them
-    hex_colors = [rgb_to_hex(color) for color in colors]
-    print("Hex codes of top colors:", hex_colors)
-
-    # Display the color palette as consecutive squares
-    fig, ax = plt.subplots(1, len(colors), figsize=(len(colors) * 2, 2))
-    for i, color in enumerate(colors):
-        ax[i].imshow([[color / 255]])  # Show each color as a square
-        ax[i].axis('off')  # Hide axis for a cleaner display
-    plt.show()
-
 # Function to remove green pixels (greenscreen areas) from the image
 def remove_green_pixels(image):
     hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)  # Convert image to HSV color space
@@ -67,7 +43,8 @@ def remove_green_pixels(image):
     return non_green_image
 
 # Modified function to apply GMM for color extraction excluding green pixels
-def extract_colors_gmm_no_green(image_path, n_colors, saturation_scale=1.1, contrast_alpha=1.1, contrast_beta=5):
+def extract_room_colors(image_path, n_colors, saturation_scale=1.1, contrast_alpha=1.1, contrast_beta=5):
+    print("extracting room's color palette...")
     img = cv2.imread(image_path)  # Read the image from the specified path
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # Convert the image from BGR (OpenCV) to RGB
     img = remove_green_pixels(img)  # Remove green pixels from the image
@@ -82,14 +59,15 @@ def extract_colors_gmm_no_green(image_path, n_colors, saturation_scale=1.1, cont
 
     # Convert the RGB colors to Hex format and print them
     hex_colors = [rgb_to_hex(color) for color in colors]
-    print("Hex codes of top colors:", hex_colors)
+    print("Hex codes of dominant colors:", hex_colors)
 
     # Display the color palette as consecutive squares
     fig, ax = plt.subplots(1, len(colors), figsize=(len(colors) * 2, 2))
     for i, color in enumerate(colors):
         ax[i].imshow([[color / 255]])  # Show each color as a square
         ax[i].axis('off')  # Hide axis for a cleaner display
+    fig.suptitle("Room Color Palette", x=0.5, fontsize=16, fontweight='bold')
     plt.show()
 
 # image_path = r""
-# extract_colors_gmm_no_green(image_path, n_colors=5)
+# extract_room_colors(image_path, n_colors=4)

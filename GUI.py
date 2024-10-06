@@ -15,6 +15,7 @@ def read_and_display_image(image_path):
     img = cv2.imread(image_path)  # Read the image from the file path
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # Convert BGR to RGB for proper display in matplotlib
     plt.imshow(img_rgb)  # Display the image using matplotlib
+    plt.title('Uploaded Image')
     plt.axis('off')  # Hide the axes
     plt.show()  # Show the image in the output
 

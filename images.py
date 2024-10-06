@@ -7,7 +7,30 @@ import cv2
 import numpy as np
 import os
 
+def display_output(original_image, masked_image, segmented_image):
+
+    # Display original image
+    plt.subplot(1, 3, 1)
+    plt.imshow(cv2.cvtColor(original_image, cv2.COLOR_BGR2RGB))  # Convert BGR to RGB for matplotlib
+    plt.title('Original Image')
+    plt.axis('off')
+
+    # Display masked image
+    plt.subplot(1, 3, 2)
+    plt.imshow(cv2.cvtColor(masked_image, cv2.COLOR_BGR2RGB))  # Convert BGR to RGB for matplotlib
+    plt.title('Masked Image')
+    plt.axis('off')
+
+    # Display segmented image
+    plt.subplot(1, 3, 3)
+    plt.imshow(cv2.cvtColor(segmented_image, cv2.COLOR_BGR2RGB))  # Convert BGR to RGB for matplotlib
+    plt.title('Segmented Image')
+    plt.axis('off')
+
+    plt.show()
+
 def segment_walls(path_image, weights_encoder, weights_decoder):
+    print("segmenting walls from image...")
     # Build the encoder and decoder models
     net_encoder = build_encoder(weights_encoder)
     net_decoder = build_decoder(weights_decoder)
@@ -23,6 +46,7 @@ def segment_walls(path_image, weights_encoder, weights_decoder):
     return segmentation_mask
 
 def walls_ui(path_image): #same function but it just saves the segmented image without the walls
+    print("segmenting walls from image...")
     script_path = os.path.abspath(__file__)
     base_dir = os.path.dirname(script_path)
     weights_encoder = os.path.join(base_dir, "model_weights", "encoder_weight.pth")
@@ -32,7 +56,8 @@ def walls_ui(path_image): #same function but it just saves the segmented image w
     m, s = images(orig, mask)
     m = np.asarray(m)
     s = np.asarray(s)
-    cv2.imwrite(os.path.join(base_dir, "seg.jpg"), s)   
+    cv2.imwrite(os.path.join(base_dir, "user_room_img.jpg"), s)
+    display_output(orig,m,s)   
     return m
 
 def walls(path_image):    
@@ -45,8 +70,17 @@ def walls(path_image):
     m, s = images(orig, mask)
     m = np.asarray(m)
     s = np.asarray(s)
-    return m,s  
+    display_output(orig,m,s)
+    return m,s
+
+def delete_file(file_path):
+    # Check if the file exists
+    if os.path.isfile(file_path):
+        os.remove(file_path)  # Delete the file
+    #     print(f"{file_path} has been deleted.")
+    # else:
+    #     print(f"{file_path} does not exist.")
 
 # if __name__=="__main__":
 #     img_path=r"pinterest_images\image_20241003_002805_245924.jpg"
-#     walls(img_path)
+#     walls_ui(img_path)
