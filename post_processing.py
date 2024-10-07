@@ -2,8 +2,9 @@ import numpy as np
 import cv2
 from utils.utils import hex_to_rgb
 
-def post_proc(image, mask, target_color, alpha=0.5):
+def post_process(image, mask, target_color, alpha=0.5):
     target_color = list(hex_to_rgb(target_color))
+    target_color = target_color[::-1]
     color_image = np.zeros_like(image)
     color_image[:] = target_color  
     mask = (mask == 0).astype(np.uint8) * 255

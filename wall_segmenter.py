@@ -45,7 +45,7 @@ def segment_walls(path_image, weights_encoder, weights_decoder):
     # Return the segmentation mask
     return segmentation_mask
 
-def walls_ui(path_image): #same function but it just saves the segmented image without the walls
+def walls_user(path_image): #same function but it just saves the segmented image without the walls
     print("segmenting walls from image...")
     script_path = os.path.abspath(__file__)
     base_dir = os.path.dirname(script_path)
@@ -56,9 +56,8 @@ def walls_ui(path_image): #same function but it just saves the segmented image w
     m, s = images(orig, mask)
     m = np.asarray(m)
     s = np.asarray(s)
-    cv2.imwrite(os.path.join(base_dir, "user_room_img.jpg"), s)
     display_output(orig,m,s)   
-    return m,s
+    return m,s,mask
 
 def walls(path_image):    
     script_path = os.path.abspath(__file__)
