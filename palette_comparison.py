@@ -76,14 +76,17 @@ def find_wall_color(csv_file, target_palette):
     return None
 
 def wall_color_suggestions(suggested_palettes):
-    sp=[palette[0] for palette in suggested_palettes]
-    wall_colors=[]
-    for palette in sp:
-            suggested_wall_color=find_wall_color('dataset.csv',palette)
-            wall_colors.append(suggested_wall_color)
-            color_square = np.array([[suggested_wall_color]]) / 255.0  
-            plt.imshow(color_square)
-            plt.title('Suggested Wall Color')
-            plt.axis('off')
-            plt.show()
+    sp = [palette[0] for palette in suggested_palettes] 
+    wall_colors = []
+    fig, axes = plt.subplots(1, len(sp), figsize=(len(sp) * 2, 2))
+    for i, palette in enumerate(sp):
+        suggested_wall_color = find_wall_color('dataset.csv', palette)
+        wall_colors.append(suggested_wall_color)
+        color_square = np.array([[suggested_wall_color]]) / 255.0
+        axes[i].imshow(color_square)
+        axes[i].set_title('Wall Color ' + str(i+1))
+        axes[i].axis('off') 
+    fig.suptitle('Suggested Wall Colors', fontsize=16)
+    plt.tight_layout()
+    plt.show()
     return wall_colors

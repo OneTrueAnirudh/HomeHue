@@ -27,6 +27,7 @@ def display_output(original_image, masked_image, segmented_image):
     plt.title('Segmented Image')
     plt.axis('off')
 
+    plt.suptitle('Wall Segmentation Results', fontsize=16)
     plt.show()
 
 def segment_walls(path_image, weights_encoder, weights_decoder):

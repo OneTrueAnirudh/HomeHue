@@ -1,16 +1,13 @@
 #importing libraries
-import cv2
-import numpy as np
-import matplotlib.pyplot as plt
 import warnings
-import os
-from palette_comparison import closest_palettes, wall_color_suggestions
 
 #importing utility functions
 from GUI import browse
 from room_palette import extract_room_colors
 from wall_segmenter import walls_user
 from wall_color import extract_wall_color
+from palette_comparison import closest_palettes, wall_color_suggestions
+from post_processing import apply_wall_colors
 
 #allowing user to select their picture
 img_path=browse()
@@ -31,4 +28,7 @@ suggested_palettes=closest_palettes(room_colors,3)
 
 #finding wall colors of closest palette rooms
 wall_colors=wall_color_suggestions(suggested_palettes)
-print(wall_colors)
+print('suggested wall colors: ', wall_colors)
+
+#applying suggested colors to user's room (un-comment when function is fixed)
+#apply_wall_colors()
