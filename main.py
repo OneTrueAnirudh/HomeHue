@@ -8,6 +8,7 @@ from wall_segmenter import walls_user
 from wall_color import extract_wall_color
 from palette_comparison import closest_palettes, wall_color_suggestions
 from post_processing import apply_wall_colors
+import cv2
 
 #allowing user to select their picture
 img_path=browse()
@@ -31,4 +32,4 @@ wall_colors=wall_color_suggestions(suggested_palettes)
 print('suggested wall colors: ', wall_colors)
 
 #applying suggested colors to user's room (un-comment when function is fixed)
-#apply_wall_colors()
+apply_wall_colors(img_path, mask, wall_colors)

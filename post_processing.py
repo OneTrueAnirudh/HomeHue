@@ -4,7 +4,8 @@ from utils.utils import hex_to_rgb
 import matplotlib.pyplot as plt
 
 def post_process(image, mask, target_color, alpha=0.5):
-    target_color = list(hex_to_rgb(target_color))
+    if "#" in target_color:
+        target_color = list(hex_to_rgb(target_color))
     target_color = target_color[::-1]
     color_image = np.zeros_like(image)
     color_image[:] = target_color  
@@ -16,11 +17,9 @@ def post_process(image, mask, target_color, alpha=0.5):
     result_image = np.where(mask[..., None] == 255, blended_image, image)
     return result_image
 
-def apply_wall_colors(image_path, mask, wall_colors, alpha=0.5): #doesnt work rn
+def apply_wall_colors(image_path, mask, wall_colors, alpha=0.5): 
     processed_images = []
-
-    image=cv2.imread()
-
+    image = cv2.imread(image_path)
     # Process each suggested wall color and store the result
     for color in wall_colors:
         result_image = post_process(image, mask, color, alpha=alpha)
