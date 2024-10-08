@@ -6,7 +6,7 @@ from GUI import browse
 from room_palette import extract_room_colors
 from wall_segmenter import walls_user
 from wall_color import extract_wall_color
-from palette_comparison import closest_palettes, wall_color_suggestions
+from palette_comparison import closest_palettes, wall_color_suggestions, room_idea_suggestions
 from post_processing import apply_wall_colors
 import cv2
 
@@ -31,5 +31,8 @@ suggested_palettes=closest_palettes(room_colors,3)
 wall_colors=wall_color_suggestions(suggested_palettes)
 print('suggested wall colors: ', wall_colors)
 
-#applying suggested colors to user's room (un-comment when function is fixed)
+#applying suggested colors to user's room
 apply_wall_colors(img_path, mask, wall_colors)
+
+#displaying room idea suggestions to users for design inspiration
+room_idea_suggestions(suggested_palettes)

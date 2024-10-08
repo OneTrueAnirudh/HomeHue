@@ -90,3 +90,30 @@ def wall_color_suggestions(suggested_palettes):
     plt.tight_layout()
     plt.show()
     return wall_colors
+
+def find_room_idea(csv_file, target_palette):
+    df = pd.read_csv(csv_file)
+    for idx, row in df.iterrows():
+        try:
+            row_palette = ast.literal_eval(row['room_colors'])
+            if isinstance(row_palette, list):
+                row_palette = tuple(tuple(color) for color in row_palette)
+            if row_palette == target_palette:
+                return str(row['image_path'])
+        except (ValueError, SyntaxError):
+            print(f"Error parsing palette in row {idx}") 
+    return None
+
+def room_idea_suggestions(suggested_palettes):
+    sp = [palette[0] for palette in suggested_palettes] 
+    fig, axes = plt.subplots(1, len(sp), figsize=(len(sp) * 2, 2))
+    for ind, i in enumerate(sp):
+        suggested_room_idea = find_room_idea('dataset.csv', i)
+        img = cv2.cvtColor(cv2.imread(suggested_room_idea), cv2.COLOR_BGR2RGB)
+        img=img/255.0
+        axes[ind].imshow(img)
+        axes[ind].set_title('Room Idea' + str(ind+1))
+        axes[ind].axis('off') 
+    fig.suptitle('Suggested Room Ideas', fontsize=16)
+    plt.tight_layout()
+    plt.show()
