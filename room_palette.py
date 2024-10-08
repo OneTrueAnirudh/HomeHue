@@ -56,10 +56,8 @@ def extract_room_colors(img, n_colors=4, saturation_scale=1.1, contrast_alpha=1.
     gmm.fit(pixels)
     colors = gmm.means_.astype(int)  # Extract the mean RGB values of the clusters
 
-    # Print RGB values of the dominant colors
     print("RGB values of dominant colors:\n", colors)
 
-    # Display the color palette as consecutive squares
     fig, ax = plt.subplots(1, len(colors), figsize=(len(colors) * 2, 2))
     for i, color in enumerate(colors):
         ax[i].imshow([[color / 255]])  # Show each color as a square
