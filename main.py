@@ -8,7 +8,6 @@ from wall_segmenter import walls_user
 from wall_color import extract_wall_color
 from palette_comparison import closest_palettes, wall_color_suggestions, room_idea_suggestions
 from post_processing import apply_wall_colors
-import cv2
 
 #allowing user to select their picture
 img_path=browse()
