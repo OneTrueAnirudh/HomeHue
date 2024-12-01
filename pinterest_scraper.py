@@ -17,8 +17,8 @@ from datetime import datetime
 chromedriver_autoinstaller.install()
 
 # Pinterest login credentials
-USERNAME = "anirudh.t2021@vitstudent.ac.in"
-PASSWORD = "101 No_0b!"
+USERNAME = "enter ur username"
+PASSWORD = "enter ur passwd"
 # Minimum dimensions for images to be downloaded
 MIN_WIDTH = 200
 MIN_HEIGHT = 200
